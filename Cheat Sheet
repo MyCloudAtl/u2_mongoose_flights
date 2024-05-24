@@ -1,0 +1,29 @@
+First Steps (Create in Terminal):
+npm init -y
+npm install mongoose
+mkdir db models seed
+touch db/index.js models/{singularparent,singularchild,index}.js seed/{pluralparent,pluralchild}.js
+Second Steps (db - index.js file):
+const mongoose = require(`mongoose`)
+mongoose
+.connect('mongodb://127.0.0.1:27017/___name___Database')
+.then(() => {
+  console.log('Successfully connected to MongoDB.')
+})
+.catch((e) => {
+  console.error('Connection error', e.message)
+})
+mongoose.set('debug', true)
+const db = mongoose.connection
+module.exports = db
+Third Step (models - singularparent file):
+const { Schema } = require('mongoose')
+const Singularparent = new Schema(
+  {
+    name: { type: String, required: true },
+    location: { type: String, required: true },
+    code: { type: String, required: true }
+  },
+  { timestamps: true }
+)
+module.exports = Singularparent
